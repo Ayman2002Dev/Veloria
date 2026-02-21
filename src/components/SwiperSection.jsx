@@ -78,7 +78,7 @@ function SwiperSection({ products, header }) {
                 >
                   {product.discountPercentage}% off
                 </Typography>
-                <AddToCartButton />
+                <AddToCartButton product={product} />
                 <Box
                   component="img"
                   src={product.images[0]}

@@ -1,12 +1,17 @@
 import { Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router";
+import { addToCart } from "../features/cartSlice";
 
-function AddToCartButton() {
+function AddToCartButton({ product }) {
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+  };
   return (
     <Button
-      component={Link}
-      to="/add-to-cart"
+      onClick={handleAddToCart}
       sx={{
         position: "absolute",
         bottom: "20px",

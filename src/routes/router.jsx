@@ -9,6 +9,10 @@ import productDetailsLoader from "./loader/productDetailsLoader";
 import Category from "../pages/Category";
 import categoryLoader from "./loader/categoryLoader";
 import homeLoader from "./loader/homeLoader";
+import Cart from "../pages/Cart";
+import Checkout from "../pages/Checkout";
+import CartLayout from "../layouts/CartLayout";
+import Payment from "../pages/Payment";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +35,14 @@ const router = createBrowserRouter([
             element: <Category />,
             loader: categoryLoader,
           },
+        ],
+      },
+      {
+        element: <CartLayout />,
+        children: [
+          { path: "/cart", element: <Cart /> },
+          { path: "/checkout", element: <Checkout /> },
+          { path: "/payment", element: <Payment /> },
         ],
       },
     ],

@@ -32,20 +32,7 @@ function Category() {
           <ProductSkeleton boxesLength={category.total} />
         ) : (
           category.products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              description={product.description}
-              category={product.category}
-              price={product.price}
-              discountPercentage={product.discountPercentage}
-              rating={product.rating}
-              stock={product.stock}
-              createdAt={product.meta.createdAt}
-              images={product.images}
-              thumbnail={product.thumbnail}
-            />
+            <ProductCard key={product.id} product={product} />
           ))
         )}
       </Box>

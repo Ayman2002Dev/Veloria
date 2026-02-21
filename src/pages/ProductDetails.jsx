@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router";
 import DescriptionSection from "../components/DescriptionSection";
 import ReviewsSection from "../components/ReviewsSection";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cartSlice";
 
 function ProductDetails() {
   const product = useLoaderData();
@@ -21,6 +23,8 @@ function ProductDetails() {
 
   const [showTab, setShowTab] = useState("description");
   const theme = useTheme();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     document.title = product.title;
@@ -286,6 +290,7 @@ function ProductDetails() {
                 </Box>
               </Box>
               <Button
+                onClick={() => dispatch(addToCart(product))}
                 disableRipple
                 disableElevation
                 className="add-to-cart-btn"

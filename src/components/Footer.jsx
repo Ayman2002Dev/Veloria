@@ -42,7 +42,7 @@ function Footer() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          bgcolor: "#111827",
+          bgcolor: "primary.main",
           p: 0,
           pt: 4,
           px: { xs: 2, md: 3 },

@@ -4,29 +4,15 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Skeleton,
   Tooltip,
   Typography,
   useTheme,
-  Button,
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router";
 import AddToCartButton from "./AddToCartButton";
 
-function ProductCard({
-  id,
-  title,
-  description,
-  category,
-  discountPercentage,
-  rating,
-  price,
-  stock,
-  createdAt,
-  images,
-  thumbnail,
-}) {
+function ProductCard({ product }) {
   const theme = useTheme();
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -44,13 +30,13 @@ function ProductCard({
             zIndex: 90,
           }}
         >
-          {discountPercentage}% off
+          {product.discountPercentage}% off
         </Typography>
-        <CardActionArea component={Link} to={`/products/${id}`}>
+        <CardActionArea component={Link} to={`/products/${product.id}`}>
           <CardMedia
             component="img"
-            image={images[0]}
-            alt={title}
+            image={product.images[0]}
+            alt={product.title}
             sx={{
               height: 300,
               objectFit: "contain",
@@ -58,13 +44,13 @@ function ProductCard({
             }}
           />
         </CardActionArea>
-        <AddToCartButton />
+        <AddToCartButton product={product} />
       </Box>
 
       <CardContent sx={{ flexGrow: 1 }}>
-        <Tooltip title={title}>
+        <Tooltip title={product.title}>
           <Typography variant="h6" sx={{ fontSize: "18px" }}>
-            {title}
+            {product.title}
           </Typography>
         </Tooltip>
 
@@ -73,7 +59,7 @@ function ProductCard({
           color="text.secondary"
           sx={{ mb: 1, color: (theme) => theme.palette.mainText }}
         >
-          {description}
+          {product.description}
         </Typography>
 
         <Box
@@ -92,7 +78,7 @@ function ProductCard({
               color: "mainText.main",
             }}
           >
-            {price}
+            {product.price}
           </Typography>
 
           <Typography
@@ -101,12 +87,17 @@ function ProductCard({
             component="del"
             sx={{ fontSize: "14px", color: "#aaacb1" }}
           >
-            ${price && (price - (price * discountPercentage) / 100).toFixed(2)}
+            $
+            {product.price &&
+              (
+                product.price -
+                (product.price * product.discountPercentage) / 100
+              ).toFixed(2)}
           </Typography>
         </Box>
-        <Typography variant="body2">Category: {category}</Typography>
+        <Typography variant="body2">Category: {product.category}</Typography>
         <Typography variant="body2" color="mainText.main" sx={{ mt: "5px" }}>
-          Available: {stock}
+          Available: {product.stock}
         </Typography>
       </CardContent>
     </Card>

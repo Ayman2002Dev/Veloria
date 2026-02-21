@@ -25,13 +25,14 @@ import {
 
 import {
   AppBar,
+  Badge,
+  badgeClasses,
   Box,
   Button,
   Container,
   Drawer,
   IconButton,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -57,12 +58,14 @@ import BottomNavigation from "./BottomNavigation";
 import { useSelector } from "react-redux";
 import SearchResults from "./SearchResults";
 import axios from "axios";
+import styled from "@emotion/styled";
 
 function Navbar() {
   const theme = useTheme();
   const [openMenu, setOpenMenu] = useState(false);
   const [openCategoriesMenu, setOpenCategoriesMenu] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [cartLength, setCartLength] = useState(0);
   const categoriesApi = import.meta.env.VITE_API_CATEGORIES;
 
   const [openSearch, setOpenSearch] = useState(false);
@@ -87,6 +90,7 @@ function Navbar() {
   };
 
   const pagination = useSelector((state) => state.pagination);
+  const cartItems = useSelector((state) => state.cart.items);
 
   const pages = [
     { name: "Home", href: "/", icon: <HomeIcon /> },
@@ -125,6 +129,10 @@ function Navbar() {
     getCategories();
   }, []);
 
+  useEffect(() => {
+    setCartLength(cartItems.length);
+  }, [cartItems]);
+
   // Icons Map List
   const iconsMap = {
     beauty: FaceRetouchingNaturalOutlined,
@@ -152,6 +160,13 @@ function Navbar() {
     "womens-shoes": CheckroomOutlined,
     "womens-watches": WatchLaterOutlined,
   };
+
+  const CartBadge = styled(Badge)`
+    & .${badgeClasses.badge} {
+      top: -12px;
+      right: -6px;
+    }
+  `;
 
   return (
     <Paper component="nav" square sx={{ py: "20px", height: 80 }}>
@@ -304,11 +319,15 @@ function Navbar() {
 
             <IconButton component={Link} to="/cart">
               <ShoppingCartIcon color="primary.main" />
+              <CartBadge
+                badgeContent={cartLength}
+                color="primary"
+                overlap="circular"
+              />
             </IconButton>
           </Box>
         </Box>
       </Container>
-
       <BottomNavigation>
         <AppBar
           position="fixed"
