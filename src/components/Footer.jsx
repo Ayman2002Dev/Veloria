@@ -30,7 +30,7 @@ function Footer() {
     {
       id: 4,
       icon: <FaLinkedin size="16px" />,
-      url: "www.linkedin.com/in/ayman-osama-089357238",
+      url: "https://www.linkedin.com/in/ayman-osama-089357238/",
     },
   ];
   return (
@@ -245,9 +245,10 @@ function Footer() {
               <Stack direction="row" gap={2}>
                 {socialLinks.map((link) => (
                   <IconButton
-                    component={Link}
+                    component="a"
                     key={link.id}
-                    to={link.id === 2 ? `mailto:${link.url}` : link.url}
+                    href={link.id === 2 ? `mailto:${link.url}` : link.url}
+                    target="_blank"
                     sx={{
                       display: "flex",
                       justifyContent: "center",

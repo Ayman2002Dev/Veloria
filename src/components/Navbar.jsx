@@ -22,6 +22,7 @@ import {
   Woman2Outlined,
   WatchLaterOutlined,
 } from "@mui/icons-material";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 
 import {
   AppBar,
@@ -277,12 +278,24 @@ function Navbar() {
           </Box>
 
           <Box sx={{ display: "flex" }}>
-            <IconButton
-              sx={{ display: { xs: "block", md: "none" } }}
-              onClick={handleSearchClick}
-            >
-              <SearchOutlinedIcon />
-            </IconButton>
+            <Tooltip title="Search">
+              <IconButton
+                sx={{ display: { xs: "block", md: "none" } }}
+                onClick={handleSearchClick}
+              >
+                <SearchOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Filter">
+              <IconButton
+                component={Link}
+                to="/filter"
+                sx={{ display: { xs: "block", md: "none" } }}
+              >
+                <FilterAltOutlinedIcon />
+              </IconButton>
+            </Tooltip>
 
             <Box>
               <Tooltip title="Open User Settings">
@@ -317,14 +330,16 @@ function Navbar() {
               </Menu>
             </Box>
 
-            <IconButton component={Link} to="/cart">
-              <ShoppingCartIcon color="primary.main" />
-              <CartBadge
-                badgeContent={cartLength}
-                color="primary"
-                overlap="circular"
-              />
-            </IconButton>
+            <Tooltip title="Cart">
+              <IconButton component={Link} to="/cart">
+                <ShoppingCartIcon color="primary.main" />
+                <CartBadge
+                  badgeContent={cartLength}
+                  color="primary"
+                  overlap="circular"
+                />
+              </IconButton>
+            </Tooltip>
           </Box>
         </Box>
       </Container>

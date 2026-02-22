@@ -13,6 +13,7 @@ import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 import CartLayout from "../layouts/CartLayout";
 import Payment from "../pages/Payment";
+import Filter from "../pages/Filter";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      { path: "/filter", element: <Filter /> },
       {
         element: <CartLayout />,
         children: [

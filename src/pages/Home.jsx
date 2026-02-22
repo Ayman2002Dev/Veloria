@@ -567,7 +567,7 @@ function Home() {
         </Box>
         <Box
           sx={{
-            display: { xs: "block", sm: "flex" },
+            display: "flex",
             justifyContent: "center",
             alignItems: "center",
             width: "100%",

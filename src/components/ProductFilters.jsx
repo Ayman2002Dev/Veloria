@@ -22,7 +22,7 @@ import {
   Woman2Outlined,
   WatchLaterOutlined,
 } from "@mui/icons-material";
-
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import {
   Box,
   Button,
@@ -36,10 +36,10 @@ import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import SearchResults from "./SearchResults";
 
-function Filter() {
+function ProductFilters() {
   const [open, SetOpen] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -199,6 +199,22 @@ function Filter() {
             </Paper>
           </Box>
         </ClickAwayListener>
+        <Button
+          component={Link}
+          to="/filter"
+          variant="outlined"
+          startIcon={<FilterAltOutlinedIcon />}
+          sx={{
+            backgroundColor: "#fafafa",
+            color: "primary.main",
+            height: "41px",
+            border: 0,
+            borderRadius: "5px",
+            textTransform: "none",
+          }}
+        >
+          Filter
+        </Button>
         <TextField
           type="search"
           onClick={handleSearchClick}
@@ -242,4 +258,4 @@ function Filter() {
   );
 }
 
-export default Filter;
+export default ProductFilters;
