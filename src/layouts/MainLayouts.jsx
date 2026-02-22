@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
-import Filter from "../components/Filter";
+import ProductFilters from "../components/ProductFilters";
 import { useMediaQuery, useTheme } from "@mui/material";
 import ScrollToTopBtn from "../components/ScrollToTopBtn";
 import Footer from "../components/Footer";
@@ -12,7 +12,7 @@ function MainLayouts() {
     <>
       <Header />
       <Navbar />
-      {isMdUp && <Filter />}
+      {isMdUp && <ProductFilters />}
       <ScrollToTopBtn />
       <Outlet />
       <Footer />

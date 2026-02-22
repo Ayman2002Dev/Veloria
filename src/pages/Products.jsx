@@ -1,9 +1,7 @@
 import { Box, Container, Grid, Pagination, Paper } from "@mui/material";
 import ProductCard from "../components/ProductCard";
 import {
-  Outlet,
   useLoaderData,
-  useLocation,
   useMatch,
   useNavigation,
   useSearchParams,

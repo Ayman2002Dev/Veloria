@@ -30,13 +30,13 @@ function ProductCard({ product }) {
             zIndex: 90,
           }}
         >
-          {product.discountPercentage}% off
+          {product?.discountPercentage}% off
         </Typography>
-        <CardActionArea component={Link} to={`/products/${product.id}`}>
+        <CardActionArea component={Link} to={`/products/${product?.id}`}>
           <CardMedia
             component="img"
-            image={product.images[0]}
-            alt={product.title}
+            image={product?.images?.[0]}
+            alt={product?.title}
             sx={{
               height: 300,
               objectFit: "contain",
@@ -48,9 +48,9 @@ function ProductCard({ product }) {
       </Box>
 
       <CardContent sx={{ flexGrow: 1 }}>
-        <Tooltip title={product.title}>
+        <Tooltip title={product?.title}>
           <Typography variant="h6" sx={{ fontSize: "18px" }}>
-            {product.title}
+            {product?.title}
           </Typography>
         </Tooltip>
 
@@ -59,7 +59,7 @@ function ProductCard({ product }) {
           color="text.secondary"
           sx={{ mb: 1, color: (theme) => theme.palette.mainText }}
         >
-          {product.description}
+          {product?.description}
         </Typography>
 
         <Box
@@ -78,7 +78,7 @@ function ProductCard({ product }) {
               color: "mainText.main",
             }}
           >
-            {product.price}
+            {product?.price}
           </Typography>
 
           <Typography
@@ -88,7 +88,7 @@ function ProductCard({ product }) {
             sx={{ fontSize: "14px", color: "#aaacb1" }}
           >
             $
-            {product.price &&
+            {product?.price &&
               (
                 product.price -
                 (product.price * product.discountPercentage) / 100
