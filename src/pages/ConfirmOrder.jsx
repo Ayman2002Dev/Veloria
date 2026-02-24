@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { confirmOrder } from "../features/orderSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 function ConfirmOrder() {
   const { orders } = useSelector((state) => state.order);
@@ -25,6 +26,7 @@ function ConfirmOrder() {
   const { shipping, billing, billingSameAsShipping } = lastOrder?.userInfo;
   const { items, coupon } = lastOrder;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const shippingCost = 20;
 
@@ -44,6 +46,7 @@ function ConfirmOrder() {
   const handleConfirm = () => {
     dispatch(confirmOrder(lastOrder?.orderId));
     toast.success("Order confirmed successfully");
+    navigate("/orders", { replace: true });
   };
   useEffect(() => {
     document.title = "Confirm Order";
