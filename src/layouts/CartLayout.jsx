@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
 
 import ProductionQuantityLimitsOutlinedIcon from "@mui/icons-material/ProductionQuantityLimitsOutlined";
-import { Link, Outlet, useLocation, useNavigate } from "react-router";
+import { Link, Outlet } from "react-router";
 import OrderSummary from "../components/OrderSummary";
 import { useSelector } from "react-redux";
 

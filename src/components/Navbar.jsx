@@ -277,10 +277,17 @@ function Navbar() {
             </Stack>
           </Box>
 
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <Tooltip title="Search">
               <IconButton
-                sx={{ display: { xs: "block", md: "none" } }}
+                sx={{
+                  display: {
+                    xs: "block",
+                    md: "none",
+                    width: "40px",
+                    height: "40px",
+                  },
+                }}
                 onClick={handleSearchClick}
               >
                 <SearchOutlinedIcon />
@@ -291,7 +298,14 @@ function Navbar() {
               <IconButton
                 component={Link}
                 to="/filter"
-                sx={{ display: { xs: "block", md: "none" } }}
+                sx={{
+                  display: {
+                    xs: "block",
+                    md: "none",
+                    width: "40px",
+                    height: "40px",
+                  },
+                }}
               >
                 <FilterAltOutlinedIcon />
               </IconButton>

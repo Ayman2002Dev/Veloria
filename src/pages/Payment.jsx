@@ -11,12 +11,24 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
+import { paymentMethod } from "../features/orderSlice";
 
 function Payment() {
+  const dispatch = useDispatch();
+  const { orders } = useSelector((state) => state.order);
+  const order = orders[orders.length - 1];
   const [expanded, setExpanded] = useState("panel1");
+  const [payment, setPayment] = useState("");
   const handleChange = (panel) => (event, isExpanded) => {
+    if (panel === "panel3") {
+      setPayment("cash");
+      dispatch(paymentMethod({ orderId: order.orderId, method: "cash" }));
+    } else {
+      setPayment("");
+    }
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -37,9 +49,16 @@ function Payment() {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    toast.success("Payment completed successfully.");
+  const onCreditSubmit = (data) => {
+    setPayment("credit");
+    dispatch(paymentMethod({ orderId: order.orderId, method: "credit" }));
+    toast.success("Data saved successfully.");
+  };
+
+  const onPaypalSubmit = (data) => {
+    setPayment("paypal");
+    dispatch(paymentMethod({ orderId: order.orderId, method: "paypal" }));
+    toast.success("Data saved successfully.");
   };
 
   useEffect(() => {
@@ -72,7 +91,7 @@ function Payment() {
         <AccordionDetails>
           <Box
             component="form"
-            onSubmit={handleCardSubmit(onSubmit)}
+            onSubmit={handleCardSubmit(onCreditSubmit)}
             sx={{
               display: "grid",
               gridTemplateColumns: { xs: "1f", sm: "1fr 1fr" },
@@ -211,7 +230,7 @@ function Payment() {
         <AccordionDetails>
           <Box
             component="form"
-            onSubmit={handlePaypalSubmit(onSubmit)}
+            onSubmit={handlePaypalSubmit(onPaypalSubmit)}
             sx={{
               display: "flex",
               justifyContent: "space-between",
@@ -323,8 +342,9 @@ function Payment() {
         </Button>
 
         <Button
-          disabled={expanded !== "panel3"}
-          onClick={() => toast.success("Payment completed successfully.")}
+          disabled={payment === ""}
+          component={Link}
+          to="/confirm-order"
           variant="contained"
           disableFocusRipple
           disableElevation
@@ -337,7 +357,7 @@ function Payment() {
             fontSize: "15px",
           }}
         >
-          Place Order
+          Confirm Order
         </Button>
       </Box>
     </Paper>
