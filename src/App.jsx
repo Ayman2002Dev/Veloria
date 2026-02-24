@@ -6,10 +6,15 @@ import { getTheme } from "./styles/theme";
 import { useSelector } from "react-redux";
 import { CssBaseline } from "@mui/material";
 import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
+import Offline from "./components/Offline";
 
 function App() {
   const mode = useSelector((state) => state.theme.mode);
   const theme = getTheme(mode);
+  const isOnline = navigator.onLine;
+
+  if (!isOnline) return <Offline />;
 
   return (
     <ThemeProvider theme={theme}>

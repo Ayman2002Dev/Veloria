@@ -2,11 +2,12 @@ import {
   Box,
   Button,
   Container,
-  Divider,
   Paper,
   Rating,
   Skeleton,
   Stack,
+  Tab,
+  Tabs,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -16,15 +17,27 @@ import DescriptionSection from "../components/DescriptionSection";
 import ReviewsSection from "../components/ReviewsSection";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice";
+import { toast } from "react-toastify";
 
 function ProductDetails() {
-  const product = useLoaderData();
+  const { product, tenProducts } = useLoaderData();
   const [currentImage, setCurrentImage] = useState(product.images[0]);
 
   const [showTab, setShowTab] = useState("description");
   const theme = useTheme();
 
   const dispatch = useDispatch();
+
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+    toast.success("Successfully added to cart");
+  };
 
   useEffect(() => {
     document.title = product.title;
@@ -290,7 +303,7 @@ function ProductDetails() {
                 </Box>
               </Box>
               <Button
-                onClick={() => dispatch(addToCart(product))}
+                onClick={handleAddToCart}
                 disableRipple
                 disableElevation
                 className="add-to-cart-btn"
@@ -304,60 +317,55 @@ function ProductDetails() {
         </Box>
       </Paper>
       <Paper
+        elevation={0}
         sx={{
           boxShadow: "none",
           mt: 5,
-          backgroundColor: (theme) =>
-            theme.palette.mode === "light" ? "#fff" : "#14181b",
         }}
         component="section"
       >
-        <Box className="controls" position="relative">
-          <Box
+        <Box sx={{ width: "100%" }}>
+          {/* Tabs Header */}
+          <Tabs
+            value={value}
+            onChange={handleChange}
             sx={{
-              "& button": {
-                textTransform: "none",
-                padding: "12px 16px",
+              borderBottom: 1,
+              borderColor: "divider",
+            }}
+            slotProps={{
+              indicator: {
+                sx: { bgcolor: "mainText.main" },
               },
             }}
           >
-            <Button
-              onClick={() => {
-                setShowTab("description");
+            <Tab
+              label="Description"
+              sx={{
+                textTransform: "capitalize",
+                "&.Mui-selected": {
+                  color: "mainText.main",
+                },
               }}
-              color="mainText,main"
-            >
-              Description
-            </Button>
-            <Button
-              onClick={() => {
-                setShowTab("review");
+            />
+            <Tab
+              label={`Reviews(${product.reviews.length})`}
+              sx={{
+                textTransform: "capitalize",
+                "&.Mui-selected": {
+                  color: "mainText.main",
+                },
               }}
-              color="mainText,main"
-            >
-              Review ({product.reviews.length})
-            </Button>
-            <Divider />
+            />
+          </Tabs>
+
+          {/* Tabs Content */}
+          <Box sx={{ mt: 2 }}>
+            {value === 0 && (
+              <DescriptionSection product={product} tenProducts={tenProducts} />
+            )}
+            {value === 1 && <ReviewsSection reviews={product.reviews} />}
           </Box>
-          <Typography
-            component="span"
-            sx={{
-              position: "absolute",
-              transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-              bottom: "0px",
-              left: showTab === "description" ? "0px" : "107.55px",
-              width: showTab === "description" ? "107.55px" : "99.58px",
-              height: "3px",
-              backgroundColor: "#000",
-            }}
-          ></Typography>
-        </Box>
-        <Box className="data" p={{ xs: "5px", sm: "20px" }}>
-          {showTab === "description" ? (
-            <DescriptionSection description={product.description} />
-          ) : (
-            <ReviewsSection reviews={product.reviews} />
-          )}
         </Box>
       </Paper>
     </Container>

@@ -22,7 +22,7 @@ function ReviewsSection({ reviews }) {
     console.log(data);
   };
   return (
-    <Box mt="20px">
+    <Box>
       <Stack spacing={3}>
         {reviews ? (
           reviews.map((review) => (

@@ -24,7 +24,7 @@ function Cart() {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cart);
   const notify = () => {
-    toast.success("Product deleted successfuly");
+    toast.success("Product successfully removed");
   };
 
   useEffect(() => {

@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 
-function CheckoutAdress({ header, control }) {
+function CheckoutAdress({ header, control, prefix, watch }) {
   const isBilling = header === "Billing Address" ? true : false;
   const [checked, setChecked] = useState(false);
   const countries = [
@@ -213,6 +213,10 @@ function CheckoutAdress({ header, control }) {
     { code: "ZW", name: "Zimbabwe" },
   ];
 
+  const billingSame = watch("billingSameAsShipping");
+
+  const hideField = billingSame && isBilling;
+
   return (
     <Box
       sx={{
@@ -241,18 +245,22 @@ function CheckoutAdress({ header, control }) {
             },
           }}
           control={
-            <Checkbox
-              size="small"
-              checked={checked}
-              onChange={(e) => {
-                setChecked(e.target.checked);
-              }}
-              color="secondary.main"
+            <Controller
+              name="billingSameAsShipping"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  {...field}
+                  size="small"
+                  checked={field.value}
+                  color="secondary.main"
+                />
+              )}
             />
           }
         />
       )}
-      {!checked && (
+      {!hideField && (
         <Box
           sx={{
             display: "grid",
@@ -261,7 +269,7 @@ function CheckoutAdress({ header, control }) {
           }}
         >
           <Controller
-            name="fullName"
+            name={`${prefix}.fullName`}
             control={control}
             rules={{ required: "Name is Required" }}
             render={({ field, fieldState: { error } }) => (
@@ -280,7 +288,7 @@ function CheckoutAdress({ header, control }) {
           />
 
           <Controller
-            name="phone"
+            name={`${prefix}.phone`}
             control={control}
             rules={{
               required: "Phone is Required",
@@ -309,7 +317,7 @@ function CheckoutAdress({ header, control }) {
           />
 
           <Controller
-            name="email"
+            name={`${prefix}.email`}
             control={control}
             rules={{
               required: "Email is Required",
@@ -334,7 +342,7 @@ function CheckoutAdress({ header, control }) {
           />
 
           <Controller
-            name="company"
+            name={`${prefix}.company`}
             control={control}
             rules={{
               required: "Company is Required",
@@ -355,7 +363,7 @@ function CheckoutAdress({ header, control }) {
           />
 
           <Controller
-            name="address1"
+            name={`${prefix}.address1`}
             control={control}
             rules={{
               required: "Address 1 is Required",
@@ -376,7 +384,7 @@ function CheckoutAdress({ header, control }) {
           />
 
           <Controller
-            name="address2"
+            name={`${prefix}.address2`}
             control={control}
             rules={{
               required: "Address 2 is Required",
@@ -397,7 +405,7 @@ function CheckoutAdress({ header, control }) {
           />
 
           <Controller
-            name="country"
+            name={`${prefix}.country`}
             control={control}
             defaultValue={{ code: "EG", name: "Egypt" }}
             rules={{ required: "Country is required" }}
@@ -428,7 +436,7 @@ function CheckoutAdress({ header, control }) {
           />
 
           <Controller
-            name="zip"
+            name={`${prefix}.zip`}
             control={control}
             rules={{
               required: "Zip is Required",

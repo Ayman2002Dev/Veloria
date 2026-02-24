@@ -3,11 +3,13 @@ import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router";
 import { addToCart } from "../features/cartSlice";
+import { toast } from "react-toastify";
 
 function AddToCartButton({ product }) {
   const dispatch = useDispatch();
   const handleAddToCart = () => {
     dispatch(addToCart(product));
+    toast.success("Successfully added to cart");
   };
   return (
     <Button

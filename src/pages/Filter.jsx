@@ -91,6 +91,10 @@ function Filter() {
     dispatch(getProducts());
   }, [selected, status, value]);
 
+  useEffect(() => {
+    document.title = "Filter";
+  }, []);
+
   return (
     <Container maxWidth="xl" sx={{ mt: 1.5 }}>
       <Grid container>
@@ -246,7 +250,10 @@ function Filter() {
             )}
           </Box>
           <Drawer variant="temporary" open={open} onClose={handleCloseDrawer}>
-            <Paper elevation={0} sx={{ width: "300px", p: 2 }}>
+            <Paper
+              elevation={0}
+              sx={{ width: { xs: "250px", sm: "300px" }, p: 2 }}
+            >
               {/* Price Range */}
               <List disablePadding>
                 <ListItem

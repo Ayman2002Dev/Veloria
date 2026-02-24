@@ -187,6 +187,7 @@ Enter any valid coupon in the Coupon field before checkout to apply the discount
             label="Coupon"
             fullWidth
             size="small"
+            color="secondary.main"
             sx={{
               "& .MuiOutlinedInput-root": {
                 pr: 0,
