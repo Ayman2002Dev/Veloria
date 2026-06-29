@@ -78,7 +78,12 @@ function ProductCard({ product }) {
               color: "mainText.main",
             }}
           >
-            {product?.price}
+            $
+            {product?.price &&
+              (
+                product.price -
+                (product.price * product.discountPercentage) / 100
+              ).toFixed(2)}
           </Typography>
 
           <Typography
@@ -87,12 +92,7 @@ function ProductCard({ product }) {
             component="del"
             sx={{ fontSize: "14px", color: "#aaacb1" }}
           >
-            $
-            {product?.price &&
-              (
-                product.price -
-                (product.price * product.discountPercentage) / 100
-              ).toFixed(2)}
+            ${product?.price}
           </Typography>
         </Box>
         <Typography variant="body2">Category: {product.category}</Typography>
