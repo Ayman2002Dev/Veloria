@@ -142,18 +142,18 @@ function SwiperSection({ products, header }) {
                     }}
                   >
                     <Typography variant="subtitle1">
-                      ${product.price}
+                      $
+                      {(
+                        product.price -
+                        (product.price * product.discountPercentage) / 100
+                      ).toFixed(2)}
                     </Typography>
                     <Typography
                       variant="subtitle2"
                       component="del"
                       color="#9ca3af"
                     >
-                      $
-                      {(
-                        product.price -
-                        (product.price * product.discountPercentage) / 100
-                      ).toFixed(2)}
+                      ${product.price}
                     </Typography>
                   </Box>
                 </Box>
