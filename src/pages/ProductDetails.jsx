@@ -169,7 +169,11 @@ function ProductDetails() {
                   color="mainText.main"
                   sx={{ fontWeight: "bold" }}
                 >
-                  ${product.price}
+                  $
+                  {(
+                    product.price -
+                    (product.price * product.discountPercentage) / 100
+                  ).toFixed(2)}
                 </Typography>
 
                 <Typography
@@ -178,11 +182,7 @@ function ProductDetails() {
                   component="del"
                   sx={{ fontWeight: "bold", color: "#aaacb1" }}
                 >
-                  $
-                  {(
-                    product.price -
-                    (product.price * product.discountPercentage) / 100
-                  ).toFixed(2)}
+                  ${product.price}
                 </Typography>
               </Box>
 
